@@ -4,12 +4,14 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import MovieCarouselScreen from './screens/MovieCarouselScreen';
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>Test</Text>
+        <MovieCarouselScreen />
       </View>
     );
   }
@@ -18,6 +20,9 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'cyan',
   },
   scrollView: {
     backgroundColor: Colors.lighter,

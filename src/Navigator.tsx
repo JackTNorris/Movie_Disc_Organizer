@@ -2,15 +2,18 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Text} from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-const Tab = createBottomTabNavigator();
+import {View, Text} from 'react-native';
+import MovieCarouselScreen from './screens/MovieCarouselScreen';
+
+const Drawer = createDrawerNavigator();
 const Navigator = () => {
   return (
-    <View>
+    <Drawer.Navigator initialRouteName='Library'>
+      <Drawer.Screen name="Library" component={MovieCarouselScreen}/>
       <Text>Test</Text>
-    </View>
+    </Drawer.Navigator>
   );
 };
 

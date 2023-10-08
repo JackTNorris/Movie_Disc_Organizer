@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image} from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import {View, Text, Image, Dimensions} from 'react-native';
 import Movie from '../common/Movie';
 import {search} from '../config/tmd-api';
+import Carousel from 'react-native-reanimated-carousel';
 
 
 export interface MovieCarouselScreenProps {};
@@ -47,48 +47,59 @@ const MovieCarouselScreen: React.FC<MovieCarouselScreenProps> = (props: MovieCar
   }, [movies]);
 
   const _renderItem = (thing: {item: any; index: any}) => {
-    /*
-      <Text style={{fontSize: 30}}>{movies && movies[thing.index] ? movies[thing.index].title : 'SHIT'}</Text>
-      <Text>{movies && movies[thing.index] ? movies[thing.index].poster_path : 'SHIT'}</Text>
-    */
     return (
       <View
         // eslint-disable-next-line react-native/no-inline-styles
         style={{
           backgroundColor: 'floralwhite',
           borderRadius: 5,
-          height: 250,
-          padding: 50,
-          marginLeft: 15,
-          marginRight: 15,
+          height: 300,
+          width: 200,
         }}>
-        <Image
-          source={{
-            uri: Image_Http_URL(movies && movies[thing.index] ? movies[thing.index].poster_path : 'pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg'),
-          }}
-          style={{height: 200, margin: 5}}
-        />
+          <Image
+            source={{
+              uri: Image_Http_URL(movies && movies[thing.index] ? movies[thing.index].poster_path : 'pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg'),
+            }}
+            style={{height: 300, margin: 5}}
+          />
       </View>
     );
   };
+  const width = Dimensions.get('window').width;
+
   return (
     <View
       // eslint-disable-next-line react-native/no-inline-styles
       style={{
         flex: 1,
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'blue',
       }}>
+      <View>
       <Carousel
-        layout={'default'}
-        data={movies ? movies : []}
-        sliderWidth={600}
-        itemWidth={300}
-        renderItem={_renderItem.bind(this)}
-        onSnapToItem={(index) => setActiveIndex(index)}
-        style={{alignItems: 'center'}}
-      />
+                loop
+                width={width}
+                height={width / 2}                
+                data={[...new Array(6).keys()]}
+                scrollAnimationDuration={1000}
+                onSnapToItem={(index) => console.log('current index:', index)}
+                renderItem={({ index }) => (
+                    <View
+                        style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Text style={{ textAlign: 'center', fontSize: 30 }}>
+                            {index}
+                        </Text>
+                    </View>
+                )}
+            />
+      </View>
     </View>
   );
 };
